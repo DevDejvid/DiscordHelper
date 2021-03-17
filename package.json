@@ -1,0 +1,21 @@
+{
+  "name": "discord_helper",
+  "version": "1.0.0",
+  "description": "Help users by providing them with automatic responses based on keywords found within their messages.",
+  "main": "./build/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node ./node_modules/typescript/bin/tsc",
+    "start": "npm run build && node ./build/main.js"
+  },
+  "author": "DevDejvid",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.35",
+    "typescript": "^4.2.3"
+  }
+}
