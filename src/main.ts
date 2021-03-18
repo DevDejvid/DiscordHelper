@@ -11,8 +11,8 @@ client.once('ready', () => {
 });
 
 client.on('message', (message) => {
-    // ignore messages from bots otherwise, you could end up in an infinite loop
-    if (!message.author.bot) {
+    // ignore messages from bots and admins
+    if (!message.author.bot && !message.member.hasPermission('ADMINISTRATOR')) {
         // read message content
         let response: string = msganalyzer.read(message.content);
 
