@@ -14,12 +14,13 @@ client.on('message', (message) => {
     // ignore messages from bots and admins
     if (!message.author.bot && !message.member.hasPermission('ADMINISTRATOR')) {
         // read message content
-        let response: string = msganalyzer.read(message.content);
-
-        // if message contains keyword, reply to user with given response
-        if (response) {
-            message.channel.send('Hi ' + message.author.toString() + ', ' + response + '.');
-        }
+        msganalyzer.read(message.content, message.author.id)
+        .then((response) => {
+            // if message contains keyword and user was not previously notified, reply to user with given response
+            if (response) {
+                message.channel.send('Hi ' + message.author.toString() + ', ' + response + '.');
+            }
+        });
     }
 });
 
