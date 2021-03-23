@@ -1,5 +1,6 @@
 import * as filemngr from './file_manager';
 import {readFileSync} from 'fs';
+import {createHash} from 'crypto';
 
 // directory storing list of notified users corresponding to each keyword
 const directory: string = './data/';
@@ -30,10 +31,13 @@ export async function read(message: string, userID: string): Promise<string> {
     for (let i = 0; i < words.length; i++) {
         for (let j = 0; j < keywords.length; j++) {
             if (RegExp(keywords[j].regex, 'i').test(words[i])) {
+                // calculate hash from user ID using SHA256 algorithm with result as hexadecimal value
+                let userHash: string = createHash('sha256').update(userID).digest('hex');
+
                 // check if user was previously notified
-                if (!await filemngr.find(userID, directory + keywords[j].keyword + '.txt')) {
+                if (!await filemngr.find(userHash, directory + keywords[j].keyword + '.txt')) {
                     // add user to the file
-                    filemngr.append(userID, directory + keywords[j].keyword + '.txt');
+                    filemngr.append(userHash, directory + keywords[j].keyword + '.txt');
                     return keywords[j].response;
                 }
             }            
