@@ -4,6 +4,7 @@ import * as msganalyzer from './message_analyzer';
 
 const client = new discord.Client();
 
+msganalyzer.config();
 dotenv.config();
 
 client.once('ready', () => {

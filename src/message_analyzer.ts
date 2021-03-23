@@ -1,24 +1,42 @@
 import * as filemngr from './file_manager';
+import {readFileSync} from 'fs';
 
-// file containing users which were previously notified and therefore, should not trigger another response
-const users: string = './data/users.txt';
+// directory storing list of notified users corresponding to each keyword
+const directory: string = './data/';
 
-// regular expression matching words keyword or keywords
-const keyword = new RegExp(/^keyword(s)?$/i);
+type keyword = {
+    keyword: string,
+    regex: string,
+    response: string
+}
+
+var keywords: keyword[];
+
+export function config() {
+    try {
+        // load keyword from file to memory
+        keywords = JSON.parse(readFileSync('./config/keywords.json', 'utf8'));
+    } catch (err) {
+        console.error(err);
+        process.exit(1);
+    }
+}
 
 export async function read(message: string, userID: string): Promise<string> {
-    // check if user was previously notified
-    if (!await filemngr.find(userID, users)) {
-        // split message into list of words based on spaces and other punctuation
-        var words: string[] = message.split(/[\s,.!?]+/);
+    // split message into list of words based on spaces and other punctuation
+    var words: string[] = message.split(/[\s,.!?]+/);
 
-        // check if any word from the list matches with regular expression
-        for (let i = 0; i < words.length; i++) {
-            if (keyword.test(words[i])) {
-                // add user to the file
-                filemngr.append(userID, users);
-                return 'response to keyword goes here';
-            }
+    // check if any word from the list matches with list of keywords
+    for (let i = 0; i < words.length; i++) {
+        for (let j = 0; j < keywords.length; j++) {
+            if (RegExp(keywords[j].regex, 'i').test(words[i])) {
+                // check if user was previously notified
+                if (!await filemngr.find(userID, directory + keywords[j].keyword + '.txt')) {
+                    // add user to the file
+                    filemngr.append(userID, directory + keywords[j].keyword + '.txt');
+                    return keywords[j].response;
+                }
+            }            
         }
     }
 

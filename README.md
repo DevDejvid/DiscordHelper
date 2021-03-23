@@ -10,6 +10,9 @@ The aim of this Discord bot is to help with moderation of newly joined users by 
 1. Clone the project to your local computer.
 2. Install all necessary packages by running `npm install` command inside the directory.
 
+## Configuration
+1. Set unique name, [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions) and response for each keyword in the following file `./config/keywords.json`.
+
 ## Run
 Transpile TypeScript to JavaScript.
 ```

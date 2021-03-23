@@ -1,0 +1,12 @@
+[
+    {
+        "keyword": "first",
+        "regex": "^keyword(s)?$",
+        "response": "response to first keyword goes here"
+    },
+    {
+        "keyword": "second",
+        "regex": "^analy(z|s)er$",
+        "response": "response to second keyword goes here"
+    }
+]
