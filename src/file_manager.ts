@@ -1,20 +1,28 @@
 import * as file from 'fs/promises';
+import {createReadStream} from 'fs';
+import {createInterface} from 'readline';
 
-export function find(line: string, filename: string): Promise<boolean> {
-    return file.readFile(filename, 'utf8')
-    .then((content) => {
-        // split file into list of lines
-        var lines: string[] = content.split(/\r?\n/);
+export function find(iinput: string, filename: string): Promise<boolean> {
+    return file.access(filename)
+    .then(async () => {
+        // create stream for reading files
+        const stream = createReadStream(filename);
+
+        // read file line by line
+        const readline = createInterface({
+            input: stream,
+            crlfDelay: Infinity
+        });
 
         // linear search
-        for (let i = 0; i < lines.length; i++)
-        {
-            if (line == lines[i])
-            {
+        for await (const line of readline) {
+            if (line == iinput) {
+                stream.close();
                 return true;
             }
         }
-
+        
+        stream.close();
         return false;
     })
     .catch((/*err*/) => {
