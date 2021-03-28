@@ -12,6 +12,8 @@ The aim of this Discord bot is to help with moderation of newly joined users by 
 
 ## Configuration
 1. Set unique name, [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions) and response for each keyword in the following file `./config/keywords.json`.
+2. Add channel IDs to this file `./config/config.ts` to enable message analyzer only in selected channels. This feature is optional, so if list is kept empty, analyzer will be enabled in all channels.
+3. Add role IDs to `./config/config.ts` to ignore messages from users with specified roles. Also optional feature.
 
 ## Run
 Transpile TypeScript to JavaScript.

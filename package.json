@@ -2,11 +2,11 @@
   "name": "discord_helper",
   "version": "1.0.0",
   "description": "Help users by providing them with automatic responses based on keywords found within their messages.",
-  "main": "./build/main.js",
+  "main": "./build/src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node ./node_modules/typescript/bin/tsc",
-    "start": "npm run build && node ./build/main.js"
+    "start": "npm run build && node ./build/src/main.js"
   },
   "author": "DevDejvid",
   "license": "ISC",
