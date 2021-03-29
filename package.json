@@ -9,7 +9,7 @@
     "start": "npm run build && node ./build/src/main.js"
   },
   "author": "DevDejvid",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0"
